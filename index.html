@@ -4,22 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta name="google-site-verification" content="nlZICF4pJad6LoIAnLHsOEOAQ9Q29of44mtW6UFtlFs" />
-  
-  <title>TutorMaven — Empower. Educate. Evolve.</title>
-  <meta name="description" content="TutorMaven is a futuristic EdTech platform bringing trust, transparency, and structure to private tutoring for students and educators across India." />
+  <!-- Google Site Verification Placeholder -->
+  <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
+
+  <title>TutorMaven — Structured Education, Reimagined</title>
+  <meta name="description" content="TutorMaven brings structure, trust, and clarity to private education through a transparent, professional digital platform." />
 
   <style>
     :root{
-      --bg:#050507;
-      --glass:rgba(255,255,255,0.08);
-      --border:rgba(255,255,255,0.18);
-      --text:#f1f1f1;
-      --muted:#b5b5c0;
-      --a1:#8b5cf6;
-      --a2:#6366f1;
-      --a3:#22d3ee;
-      --star:#facc15;
+      --bg:#050505;
+      --panel:rgba(255,255,255,0.04);
+      --border:rgba(255,255,255,0.12);
+      --text:#ffffff;
+      --muted:#9a9a9a;
+      --star:#ffffff;
     }
 
     *{margin:0;padding:0;box-sizing:border-box}
@@ -28,57 +26,50 @@
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
       background:var(--bg);
       color:var(--text);
+      line-height:1.6;
       overflow-x:hidden;
-      line-height:1.65;
     }
 
-    /* BACKGROUND BLOBS */
-    .blobs{position:fixed;inset:0;z-index:-1;overflow:hidden}
-    .blob{
-      position:absolute;
-      width:420px;height:420px;
-      filter:blur(90px);
-      opacity:.55;
-      background:radial-gradient(circle,var(--a1),transparent 60%);
-      animation:float 28s infinite alternate ease-in-out;
-    }
-    .blob.blue{background:radial-gradient(circle,var(--a3),transparent 60%);animation-duration:34s}
-    .blob.violet{background:radial-gradient(circle,var(--a2),transparent 60%);animation-duration:40s}
-
-    @keyframes float{
-      from{transform:translate(0,0)}
-      to{transform:translate(140px,-160px)}
+    /* NOTHING OS DOT GRID */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(circle at 1px 1px, rgba(255,255,255,.04) 1px, transparent 0);
+      background-size:22px 22px;
+      opacity:.4;
+      pointer-events:none;
+      z-index:-1;
     }
 
     section{
-      padding:90px 20px;
       max-width:1200px;
       margin:auto;
+      padding:90px 20px;
     }
 
-    .glass{
-      background:var(--glass);
-      backdrop-filter:blur(16px);
+    .panel{
+      background:var(--panel);
       border:1px solid var(--border);
-      border-radius:22px;
-      padding:30px;
-      box-shadow:0 20px 50px rgba(0,0,0,.45);
+      border-radius:18px;
+      padding:32px;
     }
 
     .center{text-align:center}
 
     h1,h2,h3{
-      font-weight:600;
+      font-weight:500;
       letter-spacing:-0.02em;
     }
 
     h1{font-size:2.8rem}
-    h2{font-size:2.3rem;margin-bottom:14px}
-    h3{font-size:1.1rem;margin-bottom:6px}
+    h2{font-size:2rem;margin-bottom:14px}
+    h3{font-size:1.05rem}
 
     p{
       color:var(--muted);
-      max-width:820px;
+      max-width:780px;
       margin:auto;
     }
 
@@ -90,31 +81,74 @@
       justify-content:center;
     }
 
-    .logo-img{
-      width:96px;height:96px;
+    .logo{
+      width:88px;
+      height:88px;
       border-radius:50%;
-      object-fit:cover;
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
       margin:0 auto 18px;
-      box-shadow:0 0 45px rgba(139,92,246,.65);
+      font-size:1.6rem;
+      font-weight:600;
+      letter-spacing:.12em;
     }
 
-    .cta-pill{
-      margin-top:28px;
+    /* GET STARTED BUTTON */
+    .get-started-btn{
+      background:#ffffff;
+      color:#000;
+      font-family:inherit;
+      padding:0.45em;
+      padding-left:1.4em;
+      font-size:15px;
+      font-weight:500;
+      border-radius:999px;
+      border:1px solid var(--border);
+      letter-spacing:0.04em;
       display:inline-flex;
       align-items:center;
-      padding:14px 30px;
-      border-radius:999px;
+      position:relative;
+      height:3em;
+      padding-right:3.6em;
+      cursor:pointer;
       text-decoration:none;
-      font-weight:500;
-      color:#fff;
-      background:linear-gradient(135deg,var(--a1),var(--a2));
-      box-shadow:0 0 30px rgba(99,102,241,.6);
-      transition:.3s ease;
+      overflow:hidden;
+      transition:background .25s ease,color .25s ease;
+      margin-top:26px;
     }
 
-    .cta-pill:hover{
-      transform:translateY(-2px);
-      box-shadow:0 0 45px rgba(139,92,246,.9);
+    .get-started-btn:hover{
+      background:#000;
+      color:#fff;
+    }
+
+    .get-started-btn .icon{
+      background:#000;
+      position:absolute;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:2.3em;
+      width:2.3em;
+      border-radius:50%;
+      right:0.35em;
+      transition:all .3s ease;
+    }
+
+    .get-started-btn:hover .icon{
+      width:calc(100% - 0.7em);
+    }
+
+    .get-started-btn .icon svg{
+      width:1.1em;
+      transition:transform .3s ease;
+      color:#fff;
+    }
+
+    .get-started-btn:hover .icon svg{
+      transform:translateX(0.15em);
     }
 
     /* GRID */
@@ -124,22 +158,12 @@
       gap:22px;
     }
 
-    .card{
-      transition:.35s ease;
-    }
-
-    .card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 0 45px rgba(139,92,246,.35);
-    }
-
     /* SLIDER */
     .slider{
-      overflow-x:auto;
       display:flex;
       gap:20px;
+      overflow-x:auto;
       scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;
     }
 
     .slider::-webkit-scrollbar{display:none}
@@ -153,62 +177,64 @@
       width:100%;
       height:520px;
       object-fit:cover;
-      border-radius:26px;
-      box-shadow:0 0 40px rgba(139,92,246,.35);
+      border-radius:16px;
+      border:1px solid var(--border);
     }
 
     /* FOUNDERS */
     .avatar{
-      width:88px;height:88px;
+      width:84px;
+      height:84px;
       border-radius:50%;
       object-fit:cover;
-      margin:0 auto 16px;
-      box-shadow:0 0 32px rgba(99,102,241,.6);
+      margin:0 auto 14px;
+      border:1px solid var(--border);
     }
 
     /* REVIEWS */
     .review-head{
       display:flex;
-      align-items:center;
       gap:12px;
-      margin-bottom:10px;
+      align-items:center;
+      margin-bottom:12px;
     }
 
     .review-img{
-      width:44px;height:44px;
+      width:42px;
+      height:42px;
       border-radius:50%;
+      border:1px solid var(--border);
       object-fit:cover;
-      box-shadow:0 0 18px rgba(99,102,241,.6);
     }
 
-    .review-role{
+    .role{
       font-size:.8rem;
       color:var(--muted);
     }
 
     .stars{
-      color:var(--star);
+      font-size:.8rem;
       letter-spacing:2px;
-      font-size:.9rem;
+      color:var(--star);
     }
 
     footer{
-      padding:40px 20px 60px;
+      padding:50px 20px;
       text-align:center;
     }
 
-    footer p{font-size:.9rem}
+    footer p{font-size:.85rem}
 
-    /* SCROLL */
+    /* SCROLL ANIMATION */
     .reveal{
       opacity:0;
-      transform:translateY(30px);
-      transition:.8s ease;
+      transform:translateY(20px);
+      transition:.7s ease;
     }
 
     .reveal.visible{
       opacity:1;
-      transform:translateY(0);
+      transform:none;
     }
 
     @media(min-width:768px){
@@ -220,77 +246,80 @@
 
 <body>
 
-<div class="blobs">
-  <div class="blob" style="top:10%;left:5%"></div>
-  <div class="blob blue" style="top:55%;left:65%"></div>
-  <div class="blob violet" style="top:75%;left:20%"></div>
-</div>
-
 <!-- HERO -->
 <section class="hero">
-  <div class="glass center reveal">
-    <img src="https://yt3.googleusercontent.com/RgSK5RlCvOPUTMKeL4sDNj4q54zZxcWJQnRmYCB1w7uuec9YAk4wQS53qAWh4JKsOSvuk33EZg=s900-c-k-c0x00ffffff-no-rj" class="logo-img" alt="TutorMaven Logo">
+  <div class="panel center reveal">
+    <div class="logo">TM</div>
     <h1>TutorMaven</h1>
-    <p>Empower. Educate. Evolve.</p>
-    <a href="https://mentor-match-74.preview.emergentagent.com/" class="cta-pill">
-      Login / Sign Up
+    <p>Structured education for the real world.</p>
+
+    <a
+      href="https://mentor-match-74.preview.emergentagent.com/"
+      class="get-started-btn"
+    >
+      Get started
+      <span class="icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"/>
+        </svg>
+      </span>
     </a>
   </div>
 </section>
 
 <!-- WHY -->
 <section class="reveal">
-  <div class="glass center">
+  <div class="panel center">
     <h2>Why TutorMaven</h2>
     <p>
-      Private tutoring is powerful but deeply unorganized. Attendance is manual,
-      fees are unclear, and trust depends on memory. TutorMaven brings structure,
-      transparency, and professionalism into private education. Connecting Tutors With Students
+      Private tutoring relies on trust, yet runs informally.
+      TutorMaven introduces clarity, accountability, and structure
+      without removing the human connection in education.
     </p>
   </div>
 </section>
 
 <!-- MISSION -->
 <section class="reveal">
-  <div class="glass center">
+  <div class="panel center">
     <h2>Mission & Future</h2>
     <p>
-      Our mission is to build a trusted digital backbone for private education.
-      We envision a future where tutors operate professionally, students learn
-      with clarity, and education runs on transparency, trust, and technology.
+      Our mission is to build the digital infrastructure for private education —
+      empowering tutors to work professionally and students to learn with
+      confidence, transparency, and consistency.
     </p>
   </div>
 </section>
 
 <!-- STUDENTS -->
 <section class="reveal">
-  <h2 class="center">How We Help Students</h2>
+  <h2 class="center">For Students</h2>
   <div class="grid">
-    <div class="glass card">✔ Verified & trusted tutors</div>
-    <div class="glass card">📅 Clear attendance tracking</div>
-    <div class="glass card">💳 Transparent monthly fees</div>
-    <div class="glass card">📊 Learning consistency</div>
-    <div class="glass card">🔒 Safe, professional environment</div>
- <div class="glass card">🔒 Find tutors through map</div>
+    <div class="panel">Verified tutors</div>
+    <div class="panel">Clear attendance records</div>
+    <div class="panel">Transparent monthly fees</div>
+    <div class="panel">Learning continuity</div>
+    <div class="panel">Safe & professional environment</div>
   </div>
 </section>
 
 <!-- TUTORS -->
 <section class="reveal">
-  <h2 class="center">How We Help Tutors</h2>
+  <h2 class="center">For Tutors</h2>
   <div class="grid">
-    <div class="glass card">🧾 Automated attendance & fees</div>
-    <div class="glass card">🏫 Professional class management</div>
-    <div class="glass card">🤝 Trust with students & parents</div>
-    <div class="glass card">📈 Growth & reputation</div>
-    <div class="glass card">⏱ Less admin, more teaching</div>
+    <div class="panel">Automated records</div>
+    <div class="panel">Professional class management</div>
+    <div class="panel">Trust with parents</div>
+    <div class="panel">Long-term growth</div>
+    <div class="panel">Less admin overhead</div>
   </div>
 </section>
 
 <!-- SCREENSHOTS -->
 <section class="reveal">
-  <h2 class="center">Inside the TutorMaven App</h2>
-  <div class="glass slider">
+  <h2 class="center">Inside the App</h2>
+  <div class="slider">
     <div class="slide"><img src="https://media.licdn.com/dms/image/v2/D5622AQEuZBC4OKJXyA/feedshare-shrink_1280/B56ZuZEpCWIMAs-/0/1767799690926?e=1769644800&v=beta&t=Qrqs9GKEC8mqWI8KdrfSuWswCbl1yoW_LdwcE4dXEdo" class="app-img"></div>
     <div class="slide"><img src="https://media.licdn.com/dms/image/v2/D5622AQFk4S9otTsgLA/feedshare-shrink_1280/B56ZuZIYJ_KEAs-/0/1767800671902?e=1769644800&v=beta&t=Hgu_TC53p5UUsHk9Y9Fy8_qSJQEL2I9ue5H9_e5M6FA" class="app-img"></div>
     <div class="slide"><img src="https://media.licdn.com/dms/image/v2/D5622AQHxPf5BL2-gAw/feedshare-shrink_1280/B56ZuZEpCmKgAs-/0/1767799690876?e=1769644800&v=beta&t=ncIQ2lDEHyRBN6R1aUZhQtZzcbHDiw_fFLtVCRzXSuk" class="app-img"></div>
@@ -305,60 +334,57 @@
 <section class="reveal">
   <h2 class="center">Founding Team</h2>
   <div class="grid">
-    <div class="glass card center">
+    <div class="panel center">
       <img src="https://media.licdn.com/dms/image/v2/D5603AQGK06OurcIpcA/profile-displayphoto-scale_400_400/B56ZuOeu1jJ8Ag-/0/1767621981906?e=1769040000&v=beta&t=GJXUCjRVk_UjSzL4ruzRX3AhynoIMzP-KO5QQD9Czn0" class="avatar">
       <h3>Debangan Saha</h3>
-      <p>Founder & CEO — Product vision and execution.</p>
+      <p>Product & vision</p>
     </div>
-    <div class="glass card center">
+    <div class="panel center">
       <img src="https://media.licdn.com/dms/image/v2/D4E03AQH_All3SOfPLg/profile-displayphoto-scale_400_400/B4EZt_FRf4J4Ag-/0/1767363650465?e=1769040000&v=beta&t=SWvGJf3UR2GTVIRMB5CATE6gLixDqXq8Cg55OcOVebs" class="avatar">
       <h3>Rohit Orao</h3>
-      <p>Co-Founder — Operations and growth.</p>
+      <p>Operations & growth</p>
     </div>
-    <div class="glass card center">
-      <img src="https://media.licdn.com/dms/image/v2/D4E03AQHCH04FfrL-HA/profile-displayphoto-scale_400_400/B4EZuUEy7DKMAg-/0/1767715847483?e=1769644800&v=beta&t=2XOUP9cNXy80pNPv1NWa9Su82cCL29veEg1s4rIhB1k" class="avatar">
+    <div class="panel center">
+      <img src=""https://media.licdn.com/dms/image/v2/D4E03AQHCH04FfrL-HA/profile-displayphoto-scale_400_400/B4EZuUEy7DKMAg-/0/1767715847483?e=1769644800&v=beta&t=2XOUP9cNXy80pNPv1NWa9Su82cCL29veEg1s4rIhB1k" class="avatar">
       <h3>Sweatabjo Sarkar</h3>
-      <p>Co-Founder — Technology and innovation.</p>
+      <p>Technology & systems</p>
     </div>
   </div>
 </section>
 
 <!-- REVIEWS -->
 <section class="reveal">
-  <h2 class="center">What Tutors & Students Say</h2>
-  <div class="glass slider">
-    <div class="glass slide">
+  <h2 class="center">Trusted by Tutors & Students</h2>
+  <div class="slider">
+    <div class="panel slide">
       <div class="review-head">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRULPRmf1_mYfXVMbnBHv_CY3qC7Fu81AXpg&s" class="review-img">
         <div>
           <h3>Ankit Sharma</h3>
-          <div class="review-role">Tutor</div>
+          <div class="role">Tutor</div>
           <div class="stars">★★★★★</div>
         </div>
       </div>
-      <p>Professional, transparent, and reliable platform. i got instant boost through verified batch so reliable app. Really helpful for runing smaal coaching centres </p>
+      <p>Simple, calm, and professional.</p>
     </div>
 
-    <div class="glass slide">
+    <div class="panel slide">
       <div class="review-head">
         <img src="data:image/jpeg;base64,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" class="review-img">
         <div>
           <h3>Pooja Verma</h3>
-          <div class="review-role">Student</div>
-          <div class="stars">★★★★</div>
+          <div class="role">Student</div>
+          <div class="stars">★★★★★</div>
         </div>
       </div>
-      <p>Attendance and fees are always clear. finding best tutor near me was so easy through map . i love it.</p>
+      <p>Everything is clear and organised.</p>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="reveal">
-  <div class="glass">
-    <p>Contact: tutormaven100@gmail.com | +91 8167218152</p>
-    <p>© 2026 TutorMaven. All rights reserved.</p>
-  </div>
+  <p>oryncreations@gmail.com · +91 8167218152</p>
+  <p>© 2026 TutorMaven</p>
 </footer>
 
 <script>
@@ -372,3 +398,4 @@
 
 </body>
 </html>
+

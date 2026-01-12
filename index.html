@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TutorMaven — Structured Education, Reimagined</title>
-  <meta name="description" content="TutorMaven brings structure, trust, and clarity to private education." />
+  <!-- Google Site Verification Placeholder -->
 
+  <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
+
+  <title>TutorMaven — Structured Education, Reimagined</title>
   <style>
     :root {
       --bg: #050505;
-      --panel: rgba(255, 255, 255, 0.04);
-      --border: rgba(255, 255, 255, 0.12);
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
       --text: #ffffff;
-      --muted: #9a9a9a;
-      --star: #ffffff;
-      --accent: #ffffff;
+      --muted: #888888;
+      --accent: #3b82f6;
+      --spring: cubic-bezier(0.5, 1.5, 0.5, 1);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -34,228 +36,160 @@
       content: "";
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, .05) 1px, transparent 0);
-      background-size: 24px 24px;
-      pointer-events: none;
+      background: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, .04) 1px, transparent 0);
+      background-size: 22px 22px;
       z-index: -1;
-    }
-
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 20px;
-      z-index: 100;
-      display: flex;
-      justify-content: center;
-    }
-
-    .nav-blur {
-      background: rgba(5, 5, 5, 0.7);
-      backdrop-filter: blur(10px);
-      padding: 8px 24px;
-      border-radius: 99px;
-      border: 1px solid var(--border);
-      font-size: 0.9rem;
-      font-weight: 500;
     }
 
     section {
       max-width: 1100px;
       margin: auto;
-      padding: 100px 20px;
+      padding: 100px 24px;
     }
 
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
+    /* GLASSMORPHISM */
+    .glass {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
       border-radius: 24px;
       padding: 40px;
-      transition: border 0.3s ease;
+      transition: all 0.4s var(--spring);
     }
 
-    .panel:hover { border-color: rgba(255,255,255,0.2); }
+    .glass:hover {
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-4px) scale(1.01);
+    }
 
     .center { text-align: center; }
-
-    h1, h2, h3 { font-weight: 500; letter-spacing: -0.03em; }
-    h1 { font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1.1; margin-bottom: 20px; }
-    h2 { font-size: 2.2rem; margin-bottom: 16px; }
-    h3 { font-size: 1.1rem; }
-
-    p { color: var(--muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+    h1, h2, h3 { font-weight: 500; letter-spacing: -0.04em; }
+    h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin-bottom: 24px; }
+    h2 { font-size: 2.2rem; margin-bottom: 20px; }
+    h3 { font-size: 1.2rem; margin-bottom: 12px; }
+    p { color: var(--muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
 
     /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%);
-    }
-
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    
     .logo-wrap {
-      width: 80px;
-      height: 80px;
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 32px;
-      background: rgba(255,255,255,0.03);
+      width: 80px; height: 80px; border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 32px; background: var(--glass);
     }
 
-    /* BUTTON */
-    .get-started-btn {
-      background: #fff;
-      color: #000;
-      padding: 12px 32px;
-      font-size: 16px;
-      font-weight: 600;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      text-decoration: none;
-      margin-top: 32px;
-      gap: 12px;
-      transition: transform 0.2s ease, background 0.2s ease;
+    .cta-btn {
+      background: #fff; color: #000; padding: 16px 36px;
+      font-size: 16px; font-weight: 600; border-radius: 99px;
+      display: inline-flex; align-items: center; text-decoration: none;
+      margin-top: 32px; gap: 12px; transition: all 0.4s var(--spring);
     }
 
-    .get-started-btn:hover {
-      transform: translateY(-2px);
-      background: #f0f0f0;
+    .cta-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(255,255,255,0.2); }
+
+    /* MISSION GRID */
+    .info-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; margin-top: 40px; }
+    .mission-card { background: #fff; color: #000; }
+    .mission-card h2, .mission-card p { color: #000; text-align: left; }
+
+    /* FEATURE ECOSYSTEM */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .feature-item { 
+      list-style: none; padding: 12px 0; border-bottom: 1px solid var(--glass-border);
+      display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: var(--muted);
     }
+    .feature-item strong { color: #fff; }
+    .tick { color: var(--accent); font-weight: bold; }
 
-    .get-started-btn svg { width: 18px; height: 18px; transition: transform 0.2s ease; }
-    .get-started-btn:hover svg { transform: translateX(4px); }
-
-    /* GRID */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-top: 40px;
-    }
-
-    .feature-card {
-      padding: 30px;
-      text-align: left;
-    }
-
-    /* SLIDER */
+    /* MOBILE SCREENSHOTS */
     .slider {
-      display: flex;
-      gap: 24px;
-      overflow-x: auto;
-      padding: 20px 0 40px;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
+      display: flex; gap: 20px; overflow-x: auto;
+      padding: 40px 0; scroll-snap-type: x mandatory; scrollbar-width: none;
     }
     .slider::-webkit-scrollbar { display: none; }
-
-    .slide { flex: 0 0 280px; scroll-snap-align: start; }
-
+    .slide { flex: 0 0 260px; scroll-snap-align: center; }
     .app-img {
-      width: 100%;
-      height: 500px;
-      object-fit: cover;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      filter: grayscale(0.2);
-      transition: filter 0.3s ease;
+      width: 100%; aspect-ratio: 9 / 19; object-fit: cover;
+      border-radius: 32px; border: 6px solid #181818;
+      transition: transform 0.5s var(--spring);
     }
-    .app-img:hover { filter: grayscale(0); }
+    .slide:hover .app-img { transform: scale(1.05) rotate(1deg); }
 
     /* FOUNDERS */
-    .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 20px;
-      border: 2px solid var(--border);
-    }
+    .founder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 16px; border: 1px solid var(--glass-border); }
 
-    /* REVIEWS */
-    .review-head { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
-    .review-img { width: 44px; height: 44px; border-radius: 50%; background: #222; object-fit: cover; }
-    .stars { color: #FFD700; font-size: 0.8rem; margin-top: 4px; }
-
-    footer { padding: 80px 20px; text-align: center; border-top: 1px solid var(--border); }
-    .contact-info { margin-bottom: 20px; color: var(--text); }
-
-    /* ANIMATIONS */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-    }
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    @media (max-width: 768px) {
-      section { padding: 60px 20px; }
-      .slide { flex-basis: 260px; }
+    @media (max-width: 850px) {
+      .info-grid, .feature-grid { grid-template-columns: 1fr; }
+      section { padding: 60px 24px; }
     }
   </style>
 </head>
-
 <body>
-
-<header>
-  <div class="nav-blur">TutorMaven</div>
-</header>
 
 <section class="hero">
   <div class="center reveal">
     <div class="logo-wrap">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
       </svg>
     </div>
-    <h1>Structured Education,<br>Reimagined.</h1>
-    <p>Connecting the right tutors with the right students through a transparent, professional digital platform.</p>
-    <a href="https://mentor-match-74.preview.emergentagent.com/" class="get-started-btn">
-      Get started
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+    <h1>TutorMaven</h1>
+    <p>The digital infrastructure for professional private education. Bridging the gap between informal teaching and structured learning.</p>
+    <a href="https://mentor-match-74.preview.emergentagent.com/" class="cta-btn">
+      Get Started 
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
   </div>
 </section>
 
 <section class="reveal">
-  <div class="grid">
-    <div class="panel">
-      <h2>Why TutorMaven</h2>
-      <p style="text-align: left; margin: 0;">Private tutoring relies on trust, yet runs informally. We introduce clarity, accountability, and structure without removing the human connection.</p>
+  <div class="glass center" style="margin-bottom: 24px;">
+    <h2>What is TutorMaven?</h2>
+    <p>A professional ecosystem that replaces messy WhatsApp threads and manual registers with automated attendance, fee tracking, and AI-powered learning tools.</p>
+  </div>
+  <div class="info-grid">
+    <div class="glass">
+      <h3>The Vision</h3>
+      <p style="font-size: 1rem; text-align: left;">We empower independent educators with the same professional tools used by major institutions, ensuring every student has a transparent and safe learning journey.</p>
     </div>
-    <div class="panel">
-      <h2>Our Mission</h2>
-      <p style="text-align: left; margin: 0;">Empowering tutors to work professionally and students to learn with confidence, transparency, and consistency.</p>
+    <div class="glass mission-card">
+      <h2>Mission</h2>
+      <p style="font-weight: 500; font-size: 1.2rem;">To build India’s most trusted digital infrastructure for 1-on-1 and small-group education.</p>
     </div>
   </div>
 </section>
 
 <section class="reveal">
-  <h2 class="center" style="margin-bottom: 40px;">For the Community</h2>
-  <div class="grid">
-    <div class="panel feature-card">
-      <h3 style="margin-bottom: 10px;">Verified Tutors</h3>
-      <p style="font-size: 0.95rem;">Rigorous verification to ensure quality and safety for every student.</p>
+  <h2 class="center">The Ecosystem</h2>
+  <div class="feature-grid">
+    <div class="glass">
+      <h3 style="color: var(--accent);">For Tutors</h3>
+      <div class="feature-item"><span class="tick">✓</span> <strong>Blue Tick:</strong> Official verification to build instant parent trust.</div>
+      <div class="feature-item"><span class="tick">✓</span> <strong>AI Quiz Creator:</strong> Generate assessments from notes in seconds.</div>
+      <div class="feature-item"><span class="tick">✓</span> <strong>Promotional Banner:</strong> Increase visibility across the platform.</div>
+      <div class="feature-item"><span class="tick">✓</span> <strong>Attendance & Fees:</strong> One-tap marking with automated reminders.</div>
+      <div class="feature-item"><span class="tick">✓</span> <strong>Direct Connect:</strong> Professional communication bridge with parents.</div>
     </div>
-    <div class="panel feature-card">
-      <h3 style="margin-bottom: 10px;">Automated Records</h3>
-      <p style="font-size: 0.95rem;">Attendance and progress tracking without the administrative headache.</p>
-    </div>
-    <div class="panel feature-card">
-      <h3 style="margin-bottom: 10px;">Fee Transparency</h3>
-      <p style="font-size: 0.95rem;">Clear payment structures that build long-term trust with parents.</p>
+    <div class="glass">
+      <h3>For Students</h3>
+      <div class="feature-item"><span class="tick">✓</span> <strong>Interactive Map:</strong> Find the best-rated tutors near you visually.</div>
+      <div class="feature-item"><span class="tick">✓</span> <strong>Fee Transparency:</strong> Clear records of all past and upcoming payments.</div>
+      <div class="feature-item"><span class="tick">✓</span> <strong>Verified Discovery:</strong> Search only for vetted, high-quality experts.</div>
+      <div class="feature-item"><span class="tick">✓</span> <strong>Attendance Logs:</strong> Monitor your consistency and learning hours.</div>
+      <div class="feature-item"><span class="tick">✓</span> <strong>Instant Interaction:</strong> Message and book sessions with a single tap.</div>
     </div>
   </div>
 </section>
 
 <section class="reveal">
-  <h2 class="center">Experience the Interface</h2>
+  <h2 class="center">Inside the App</h2>
   <div class="slider">
     <div class="slide"><img src="https://media.licdn.com/dms/image/v2/D5622AQEuZBC4OKJXyA/feedshare-shrink_1280/B56ZuZEpCWIMAs-/0/1767799690926?e=1769644800&v=beta&t=Qrqs9GKEC8mqWI8KdrfSuWswCbl1yoW_LdwcE4dXEdo" class="app-img"></div>
     <div class="slide"><img src="https://media.licdn.com/dms/image/v2/D5622AQFk4S9otTsgLA/feedshare-shrink_1280/B56ZuZIYJ_KEAs-/0/1767800671902?e=1769644800&v=beta&t=Hgu_TC53p5UUsHk9Y9Fy8_qSJQEL2I9ue5H9_e5M6FA" class="app-img"></div>
@@ -266,42 +200,35 @@
 
 <section class="reveal">
   <h2 class="center">Founding Team</h2>
-  <div class="grid">
-    <div class="panel center">
-      <img src="https://media.licdn.com/dms/image/v2/D5603AQGK06OurcIpcA/profile-displayphoto-scale_400_400/B56ZuOeu1jJ8Ag-/0/1767621981906?e=1769040000&v=beta&t=GJXUCjRVk_UjSzL4ruzRX3AhynoIMzP-KO5QQD9Czn0" class="avatar" alt="Debangan Saha">
+  <div class="founder-grid">
+    <div class="glass center">
+      <img src="https://media.licdn.com/dms/image/v2/D5603AQGK06OurcIpcA/profile-displayphoto-scale_400_400/B56ZuOeu1jJ8Ag-/0/1767621981906?e=1769040000&v=beta&t=GJXUCjRVk_UjSzL4ruzRX3AhynoIMzP-KO5QQD9Czn0" class="avatar">
       <h3>Debangan Saha</h3>
       <p style="font-size: 0.9rem;">Product & Vision</p>
     </div>
-    <div class="panel center">
-      <img src="https://media.licdn.com/dms/image/v2/D4E03AQH_All3SOfPLg/profile-displayphoto-scale_400_400/B4EZt_FRf4J4Ag-/0/1767363650465?e=1769040000&v=beta&t=SWvGJf3UR2GTVIRMB5CATE6gLixDqXq8Cg55OcOVebs" class="avatar" alt="Rohit Orao">
+    <div class="glass center">
+      <img src="https://media.licdn.com/dms/image/v2/D4E03AQH_All3SOfPLg/profile-displayphoto-scale_400_400/B4EZt_FRf4J4Ag-/0/1767363650465?e=1769040000&v=beta&t=SWvGJf3UR2GTVIRMB5CATE6gLixDqXq8Cg55OcOVebs" class="avatar">
       <h3>Rohit Orao</h3>
       <p style="font-size: 0.9rem;">Operations & Growth</p>
     </div>
-    <div class="panel center">
-      <img src="https://media.licdn.com/dms/image/v2/D4E03AQHCH04FfrL-HA/profile-displayphoto-scale_400_400/B4EZuUEy7DKMAg-/0/1767715847483?e=1769644800&v=beta&t=2XOUP9cNXy80pNPv1NWa9Su82cCL29veEg1s4rIhB1k" class="avatar" alt="Sweatabjo Sarkar">
+    <div class="glass center">
+      <img src="https://media.licdn.com/dms/image/v2/D4E03AQHCH04FfrL-HA/profile-displayphoto-scale_400_400/B4EZuUEy7DKMAg-/0/1767715847483?e=1769644800&v=beta&t=2XOUP9cNXy80pNPv1NWa9Su82cCL29veEg1s4rIhB1k" class="avatar">
       <h3>Sweatabjo Sarkar</h3>
-      <p style="font-size: 0.9rem;">Technology & Systems</p>
+      <p style="font-size: 0.9rem;">Tech & Systems</p>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="reveal">
-    <div class="contact-info">
-      <p>oryncreations@gmail.com · +91 8167218152</p>
-    </div>
-    <p style="font-size: 0.8rem; opacity: 0.6;">© 2026 TutorMaven. Built for the future of education.</p>
-  </div>
+<footer class="center reveal" style="padding: 80px 24px; border-top: 1px solid var(--glass-border);">
+  <p>oryncreations@gmail.com · +91 8167218152</p>
+  <p style="font-size: 0.8rem; opacity: 0.5; margin-top: 12px;">© 2026 TutorMaven. Built for the future of learning.</p>
 </footer>
 
 <script>
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if(e.isIntersecting) e.target.classList.add("visible");
-    });
+  const obs = new IntersectionObserver(es => {
+    es.forEach(e => { if(e.isIntersecting) e.target.classList.add("visible"); });
   }, { threshold: 0.1 });
-  
-  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  document.querySelectorAll(".reveal").forEach(r => obs.observe(r));
 </script>
 
 </body>

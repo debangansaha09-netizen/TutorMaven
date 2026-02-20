@@ -1,0 +1,25 @@
+{
+  "name": "tutormaven",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TutorMaven – hyper-local tutor discovery, management, and AI quiz platform for India.",
+  "workspaces": [
+    "web",
+    "api"
+  ],
+  "scripts": {
+    "dev:web": "npm --prefix web run dev",
+    "dev:api": "npm --prefix api run start:dev",
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:api\"",
+    "build": "npm --prefix web run build && npm --prefix api run build",
+    "lint": "npm --prefix web run lint && npm --prefix api run lint",
+    "start": "npm --prefix api run start:prod"
+  },
+  "engines": {
+    "node": ">=18.18.0",
+    "npm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

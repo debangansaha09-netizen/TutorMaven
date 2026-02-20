@@ -1,0 +1,304 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  TUTOR
+  PARENT
+  ADMIN
+}
+
+model User {
+  id            String        @id @default(cuid())
+  email         String        @unique
+  passwordHash  String?
+  name          String
+  role          UserRole
+  phone         String?       @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+
+  studentProfile StudentProfile?
+  tutorProfile   TutorProfile?
+  parentProfile  ParentProfile?
+  oauthAccounts  OAuthAccount[]
+
+  @@index([role])
+}
+
+model OAuthAccount {
+  id                String   @id @default(cuid())
+  userId            String
+  provider          String
+  providerAccountId String
+  accessToken       String?
+  refreshToken      String?
+  expiresAt         Int?
+
+  user              User     @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerAccountId])
+}
+
+model StudentProfile {
+  id           String    @id @default(cuid())
+  userId       String    @unique
+  user         User      @relation(fields: [userId], references: [id])
+  classLevel   String
+  board        String
+  schoolName   String?
+  city         String
+  pincode      String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  enrollments  Enrollment[]
+  parents      ParentStudentLink[]
+}
+
+model TutorProfile {
+  id              String           @id @default(cuid())
+  userId          String           @unique
+  user            User             @relation(fields: [userId], references: [id])
+  bio             String?
+  experienceYears Int?
+  verificationStatus String        @default("PENDING")
+  city            String
+  pincode         String
+  latitude        Float?
+  longitude       Float?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  locations       TutorLocation[]
+  offerings       ClassOffering[]
+  verificationRequests VerificationRequest[]
+}
+
+model ParentProfile {
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  user      User      @relation(fields: [userId], references: [id])
+  phone     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  students  ParentStudentLink[]
+}
+
+model ParentStudentLink {
+  id          String          @id @default(cuid())
+  parentId    String
+  studentId   String
+  relation    String?
+
+  parent      ParentProfile   @relation(fields: [parentId], references: [id])
+  student     StudentProfile  @relation(fields: [studentId], references: [id])
+
+  @@unique([parentId, studentId])
+}
+
+model TutorLocation {
+  id        String        @id @default(cuid())
+  tutorId   String
+  tutor     TutorProfile  @relation(fields: [tutorId], references: [id])
+  label     String?
+  address   String
+  city      String
+  pincode   String
+  latitude  Float
+  longitude Float
+}
+
+model ClassOffering {
+  id           String        @id @default(cuid())
+  tutorId      String
+  tutor        TutorProfile  @relation(fields: [tutorId], references: [id])
+  subject      String
+  classLevel   String
+  mode         String
+  feePerClass  Int
+  scheduleJson String        // serialized schedule (e.g. per day/time)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  enrollments  Enrollment[]
+}
+
+model Enrollment {
+  id             String        @id @default(cuid())
+  studentId      String
+  classOfferingId String
+  status         String        @default("ACTIVE")
+  joinedAt       DateTime      @default(now())
+
+  student        StudentProfile @relation(fields: [studentId], references: [id])
+  classOffering  ClassOffering  @relation(fields: [classOfferingId], references: [id])
+  attendance     Attendance[]
+  feeStatuses    FeeStatus[]
+
+  @@index([studentId])
+  @@index([classOfferingId])
+}
+
+model Attendance {
+  id            String       @id @default(cuid())
+  enrollmentId  String
+  date          DateTime
+  status        String       // PRESENT / ABSENT / CANCELLED
+  mode          String       // ONLINE / OFFLINE
+  notes         String?
+
+  enrollment    Enrollment   @relation(fields: [enrollmentId], references: [id])
+
+  @@index([enrollmentId, date])
+}
+
+model FeeStatus {
+  id            String      @id @default(cuid())
+  enrollmentId  String
+  month         Int
+  year          Int
+  amountDue     Int
+  amountPaid    Int         @default(0)
+  dueDate       DateTime
+  status        String      @default("DUE")
+
+  enrollment    Enrollment  @relation(fields: [enrollmentId], references: [id])
+
+  @@index([enrollmentId, year, month])
+}
+
+model Quiz {
+  id           String        @id @default(cuid())
+  createdById  String?
+  createdByRole UserRole?
+  classLevel   String
+  board        String
+  subject      String
+  chapter      String
+  difficulty   String
+  questionCount Int
+  isAdaptive   Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+
+  questions    Question[]
+  attempts     QuizAttempt[]
+}
+
+model Question {
+  id           String    @id @default(cuid())
+  quizId       String
+  text         String
+  optionA      String
+  optionB      String
+  optionC      String
+  optionD      String
+  correctOption String
+  explanation  String?
+  difficulty   String
+  topicCode    String
+  source       String       // AI / MANUAL
+  hash         String       @unique
+
+  quiz         Quiz        @relation(fields: [quizId], references: [id])
+  responses    QuestionResponse[]
+}
+
+model QuizAttempt {
+  id           String      @id @default(cuid())
+  quizId       String
+  userId       String
+  role         UserRole
+  startedAt    DateTime    @default(now())
+  submittedAt  DateTime?
+  durationSec  Int?
+  score        Int?
+  maxScore     Int?
+  accuracy     Float?
+
+  quiz         Quiz        @relation(fields: [quizId], references: [id])
+  responses    QuestionResponse[]
+
+  @@index([userId, quizId])
+}
+
+model QuestionResponse {
+  id              String        @id @default(cuid())
+  attemptId       String
+  questionId      String
+  chosenOption    String
+  isCorrect       Boolean
+  timeTakenSec    Int?
+
+  attempt         QuizAttempt   @relation(fields: [attemptId], references: [id])
+  question        Question      @relation(fields: [questionId], references: [id])
+}
+
+model WeakTopicProfile {
+  id           String   @id @default(cuid())
+  studentId    String
+  subject      String
+  topicCode    String
+  attempts     Int      @default(0)
+  correct      Int      @default(0)
+  lastUpdated  DateTime @default(now())
+
+  @@index([studentId, subject, topicCode])
+}
+
+model VerificationRequest {
+  id         String       @id @default(cuid())
+  tutorId    String
+  status     String       @default("PENDING")
+  createdAt  DateTime     @default(now())
+  decidedAt  DateTime?
+  adminId    String?
+  notes      String?
+
+  tutor      TutorProfile @relation(fields: [tutorId], references: [id])
+}
+
+model Report {
+  id           String      @id @default(cuid())
+  reporterId   String
+  reportedTutorId String
+  reason       String
+  details      String?
+  status       String      @default("OPEN")
+  createdAt    DateTime    @default(now())
+  resolvedAt   DateTime?
+
+  @@index([reportedTutorId, status])
+}
+
+model AuditLog {
+  id          String     @id @default(cuid())
+  adminId     String
+  action      String
+  entityType  String
+  entityId    String
+  metadata    String?
+  createdAt   DateTime   @default(now())
+
+  @@index([adminId, entityType])
+}
+
+model CurriculumMap {
+  id          String   @id @default(cuid())
+  board       String
+  classLevel  String
+  subject     String
+  chapter     String
+  topicCode   String
+  topicLabel  String
+
+  @@index([board, classLevel, subject, chapter])
+}
